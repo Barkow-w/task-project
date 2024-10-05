@@ -1,0 +1,99 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // Склонение
+
+    function getComputerString(number) {
+        const absNumber = Math.abs(number);
+        const lastDigit = absNumber % 10;
+        const lastTwoDigits = absNumber % 100;
+
+        let wordForm;
+
+        if (lastDigit === 1 && lastTwoDigits !== 11) {
+            wordForm = "компьютер";
+        } else if ([2, 3, 4].includes(lastDigit) && ![12, 13, 14].includes(lastTwoDigits)) {
+            wordForm = "компьютера";
+        } else {
+            wordForm = "компьютеров";
+        }
+
+        return `${number} ${wordForm}`;
+    }
+
+    console.log(getComputerString(25));
+    console.log(getComputerString(41));
+    console.log(getComputerString(1048));
+    console.log(getComputerString(-12));
+    console.log(getComputerString(0));
+
+    // Общий делитель
+    function commonDivisors (numbers) {
+        if (numbers.length === 0) return [];
+
+        const minNum = Math.min(...numbers);
+
+        function divisors (n) {
+            const divs = [];
+            for (let i = 1; i < n; i++) {
+                if (n % i === 0) {
+                    divs.push(i);
+                }
+            }
+            return divs;
+        }
+
+        const commonDivs = divisors(minNum);
+        return commonDivs.filter(d => numbers.every(num => num % d === 0))
+    }
+
+    const numbers = [42, 12, 18];
+    console.log(commonDivisors(numbers))
+
+    // Простые числа
+
+    function isPrime(num) {
+        if (num <= 1) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) return false;
+        }
+        return true;
+    }
+
+    function getPrimesInRange(min, max) {
+        const primes = [];
+        for (let i = min; i <= max; i++) {
+            if (isPrime(i)) {
+                primes.push(i);
+            }
+        }
+        return primes;
+    }
+
+    const min = 11;
+    const max = 20;
+    const primeNumbers = getPrimesInRange(min, max);
+    console.log(primeNumbers);
+
+    // Таблица умножения
+
+    function printMultiplicationTable(n) {
+        for (let i = 1; i <= n; i++) {
+            let row = '';
+            for (let j = 1; j <= n; j++) {
+                row += (i * j).toString().padStart(4, ' ');
+            }
+            console.log(row);
+        }
+    }
+
+    const number = 5;
+    printMultiplicationTable(number);
+
+</script>
+</body>
+</html>
